@@ -9,12 +9,8 @@ import spock.lang.Specification
 @TestFor(Musee)
 class MuseeSpec extends Specification {
 
-    def setup() {
-    }
 
-    def cleanup() {
-    }
 
-    void "test something"() {
-    }
+
+
 }
