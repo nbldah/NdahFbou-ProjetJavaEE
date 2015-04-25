@@ -53,18 +53,18 @@ class JeuTestService {
 
 
         if (Adresse.count() == 0) {
-            adresse1 = new Adresse(numero: "2", rue: "RUE DES ARCHIVES", codePostal: 31500, ville: "Toulouse").save()
-            adresse2 = new Adresse(numero: "5", rue: "RUE SAINT PANTALEON", codePostal: 31000, ville: "Toulouse").save()
-            adresse3 = new Adresse(numero: "69", rue: "RUE PARGAMINIERES", codePostal: 31000, ville: "Toulouse").save()
-            adresse4 = new Adresse(numero: "31", rue: "RUE DE LA FONDERIE", codePostal: 31000, ville: "Toulouse").save()
-            adresse5 = new Adresse(numero: "TOUT", rue: "RUE MONTMORENCY", codePostal: 31200, ville: "Toulouse").save()
-            adresse6 = new Adresse(numero: "2", rue: "RUE VIGUERIE", codePostal: 31300, ville: "Toulouse").save()
-            adresse7 = new Adresse(numero: "21", rue: "RUE DE METZ", codePostal: 31000, ville: "Toulouse").save()
-            adresse8 = new Adresse(numero: "2", rue: "RUE TRIPIERE", codePostal: 31000, ville: "Toulouse").save()
-            adresse9 = new Adresse(numero: "2", rue: "RUE VIGUERIE", codePostal: 31300, ville: "Toulouse").save()
-            adresse10 = new Adresse(numero: "7", rue: "RUE DU MAY", codePostal: 31000, ville: "Toulouse").save()
-            adresse11 = new Adresse(numero: "TOUT", rue: "RUE DU JAPON", codePostal: 31400, ville: "Toulouse").save()
-            adresse12 = new Adresse(numero: "13", rue: "RUE DE LA PLEAU", codePostal: 31000, ville: "Toulouse").save()
+            adresse1 = new Adresse(numero: "2", rue: "RUE DES ARCHIVES", codePostal: "31500", ville: "Toulouse").save()
+            adresse2 = new Adresse(numero: "5", rue: "RUE SAINT PANTALEON", codePostal: "31000", ville: "Toulouse").save()
+            adresse3 = new Adresse(numero: "69", rue: "RUE PARGAMINIERES", codePostal: "31000", ville: "Toulouse").save()
+            adresse4 = new Adresse(numero: "31", rue: "RUE DE LA FONDERIE", codePostal: "31000", ville: "Toulouse").save()
+            adresse5 = new Adresse(numero: "TOUT", rue: "RUE MONTMORENCY", codePostal: "31200", ville: "Toulouse").save()
+            adresse6 = new Adresse(numero: "2", rue: "RUE VIGUERIE", codePostal: "31300", ville: "Toulouse").save()
+            adresse7 = new Adresse(numero: "21", rue: "RUE DE METZ", codePostal: "31000", ville: "Toulouse").save()
+            adresse8 = new Adresse(numero: "2", rue: "RUE TRIPIERE", codePostal: "31000", ville: "Toulouse").save()
+            adresse9 = new Adresse(numero: "2", rue: "RUE VIGUERIE", codePostal: "31300", ville: "Toulouse").save()
+            adresse10 = new Adresse(numero: "7", rue: "RUE DU MAY", codePostal: "31000", ville: "Toulouse").save()
+            adresse11 = new Adresse(numero: "TOUT", rue: "RUE DU JAPON", codePostal: "31400", ville: "Toulouse").save()
+            adresse12 = new Adresse(numero: "13", rue: "RUE DE LA PLEAU", codePostal:"31000", ville: "Toulouse").save()
         }
     }
 

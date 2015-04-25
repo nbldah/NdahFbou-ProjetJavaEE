@@ -12,11 +12,11 @@ class MuseeServiceIntegrationSpec extends Specification {
     Adresse uneAdresse
     Gestionnaire unGestionnaire
     MuseeService museeService
-    //JeuTestService jeuTestService
+   // JeuTestService jeuTestService
 
     def setup() {
 
-        uneAdresse =  new Adresse(numero:"20",rue: "jean jaures",codePostal: 31400,ville: "Toulouse" ).save(flush:true)
+        uneAdresse =  new Adresse(numero:"20",rue: "jean jaures",codePostal: "31400",ville: "Toulouse" ).save()
         unGestionnaire = new Gestionnaire(nom: "mairie").save(flush: true)
 
     }
@@ -46,13 +46,12 @@ class MuseeServiceIntegrationSpec extends Specification {
 
 
     void "test insertion ou mise à jour d'un Musee"() {
-
         given:"un musee"
         Musee unMusee = new Musee(nom:"Archive municipale",horaireOuverture: "de 8h à 18h",
                 telephone:"0534768965",accesMetro:"metro A",accesBus: "bus 178")
 
         and: "une adresse"
-        uneAdresse =  new Adresse(numero:"20",rue: "jean jaures",codePostal: 31400,ville: "Toulouse" )
+        uneAdresse =  new Adresse(numero:"20",rue: "jean jaures",codePostal: "31400",ville: "Toulouse" )
 
         and: "un gestionnaire"
         unGestionnaire = new Gestionnaire(nom: "mairie")
@@ -78,61 +77,79 @@ class MuseeServiceIntegrationSpec extends Specification {
 
     }
 
-/*
+
     void "test du moteur de recherche sur les musees"() {
 
-        given:"les musee, les adresses et les inscriptions fournis par le jeu de test "
-        //jeuTestService
+        given:" une liste de musees "
+        Musee.deleteAll()
+  /*    Musee musee1 = new Musee(nom: "ARCHIVES MUNICIPALES TOULOUSE",
+                horaireOuverture: "Ouvert du lundi au vendredi de 9h à 17h",
+                telephone: "0561616333", accesMetro: "Roseraie (A)",
+                accesBus: "36, 38" ,
+                adresse: new Adresse(numero: "4", rue: "RUE DES ARCHIVES", codePostal: "31400", ville: "Toulouse").save(),
+                gestionnaire: new Gestionnaire(nom:"Mairie").save()).save()
 
-        when:"on cherche les musees dont le nom contient ... "
-        List<Musee> resMusee = museeService.searchMusee("ct1",null,null)
+        Musee musee2 = new Musee(nom: "ENSEMBLE CONVENTUEL DES JACOBINS",
+                horaireOuverture: "Ouvert du lundi au vendredi de 9h à 17h",
+                telephone: "0561616333", accesMetro: "Roseraie (A)",
+                accesBus: "36, 38" ,
+                adresse: new Adresse(numero: "4", rue: "RUE DU MAY", codePostal: "31000", ville: "Toulouse").save(),
+                gestionnaire: new Gestionnaire(nom:"Mairie").save()).save()
 
-        then:"on récupère uniquement les 2 inscriptions sur activité 1"
+        Musee musee3 = new Musee(nom: "MUSEE DU VIEUX TOULOUSE",
+                horaireOuverture: "Ouvert du lundi au vendredi de 9h à 17h",
+                telephone: "0561616333", accesMetro: "Roseraie (A)",
+                accesBus: "36, 38" ,
+                adresse: new Adresse(numero: "4", rue: "RUE DU JAPON", codePostal: "31400", ville: "Toulouse").save(),
+                gestionnaire: new Gestionnaire(nom:"Mairie").save()).save()
+*/
+
+        when:"on cherche les musees dont le nom contient toulouse "
+        List<Musee> resMusee = museeService.searchMusee('Toulouse',null,null)
+
+        then:"on récupère uniquement les 2 musees "
         resMusee.size() == 2
-        resMusee*.id.contains(jeuTestService.jeanneOnAct1.id)
-        resMusee*.id.contains(jeuTestService.jacquesOnAct1.id)
+       // resMusee*.id.contains(musee1.id)
+       // resMusee*.id.contains(musee3.id)
 
-        when:"on cherche les musees dont le code postal est ... "
-        resMusee = museeService.searchMusee(null,'Val',null)
 
-        then:"on récupère uniquement l'inscription jacquesOnAct3"
+        when:"on cherche les musees dont le code postal est 31000"
+        resMusee = museeService.searchMusee(null,"31000",null)
+
+        then:"on récupère uniquement le musee MUSEE ENSEMBLE CONVENTUEL DES JACOBINS"
         resMusee.size() == 1
-        resMusee*.id.contains(jeuTestService.jacquesOnAct3.id)
+        //resMusee.get(0).nom == "ENSEMBLE CONVENTUEL DES JACOBINS"
 
-        when:"on cherche les musee dont le nom de la rue est ... "
-        resMusee = museeService.searchMusee(null,null,'Jacq')
+        when:"on cherche les musee dont le nom de la rue contient 'DU' "
+        resMusee = museeService.searchMusee(null,null,'du')
 
-        then:"on recupère les 2 inscriptions de Jacques"
+        then:"on recupère les 2 musees"
         resMusee.size() == 2
-        resMusee*.id.contains(jeuTestService.jacquesOnAct3.id)
-        resMusee*.id.contains(jeuTestService.jacquesOnAct1.id)
+        //resMusee*.id.contains(jeuTestService.musee2.id)
+        //resMusee*.id.contains(jeuTestService.musee3.id)
 
-        and:"elle sont ordonnées suivant le titre de l'activité"
-        resMusee*.activite*.titre == [jeuTestService.activite1.titre, jeuTestService.activite3.titre]
+        when:"on cherche les musee sur lesquelles nom contient 'MUSEE'ou le code postal est 31000"
+        resMusee = museeService.searchMusee('MUSEE',"31000",null)
 
-        when:"on cherche les inscriptions sur lesquelles une personne dont le nom ou me prénom contient 'Jack'et dont les activités sont gérées par le responsable dont le nom ou le prenom contient 'Isa'  "
-        resMusee = museeService.searchInscriptions(null,'Isa','Jacq')
+        then:"on récupère les 2 musees "
+        resMusee.size() == 2
+        //resMusee*.id.contains(jeuTestService.musee2.id)
+        //resMusee*.id.contains(jeuTestService.musee3.id)
 
-        then:"on récupère uniquement l'inscription jacquesOnAct1"
-        resMusee.size() == 1
-        resMusee*.id.contains(jeuTestService.jacquesOnAct1.id)
-
-        when:"on cherche les inscriptions dont le titre de l'activité contient 'Isa'"
-        resMusee = museeService.searchInscriptions("Isa",null,null)
+        when:"on cherche les musees dont le nom de l'activité contient 'zzz' "
+        resMusee = museeService.searchMusee("zzz",null,null)
 
         then: "on ne récupère aucune inscription"
         resMusee.size() == 0
 
         when:"on positionne tous les critères à null"
-        resMusee = museeService.searchInscriptions(null, null, null)
+        resMusee = museeService.searchMusee(null, null, null)
 
         then: "on récupère toutes les inscriptions"
         resMusee.size() == 3
 
-        and:"elle sont ordonnées suivant le titre de l'activité"
-        resMusee*.activite*.titre == [jeuTestService.activite1.titre, jeuTestService.activite1.titre, jeuTestService.activite3.titre]
     }
-*/
+
 
 
 
