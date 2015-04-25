@@ -59,7 +59,7 @@ class JeuTestService {
             adresse4 = new Adresse(numero: "31", rue: "RUE DE LA FONDERIE", codePostal: 31000, ville: "Toulouse").save()
             adresse5 = new Adresse(numero: "TOUT", rue: "RUE MONTMORENCY", codePostal: 31200, ville: "Toulouse").save()
             adresse6 = new Adresse(numero: "2", rue: "RUE VIGUERIE", codePostal: 31300, ville: "Toulouse").save()
-            adresse7 = new Adresse(numero: "21", rue: "RUE DE METZ", codePostal: 3100, ville: "Toulouse").save()
+            adresse7 = new Adresse(numero: "21", rue: "RUE DE METZ", codePostal: 31000, ville: "Toulouse").save()
             adresse8 = new Adresse(numero: "2", rue: "RUE TRIPIERE", codePostal: 31000, ville: "Toulouse").save()
             adresse9 = new Adresse(numero: "2", rue: "RUE VIGUERIE", codePostal: 31300, ville: "Toulouse").save()
             adresse10 = new Adresse(numero: "7", rue: "RUE DU MAY", codePostal: 31000, ville: "Toulouse").save()
@@ -98,6 +98,7 @@ class JeuTestService {
             museeService.insertOrUpdateMusee(musee10,adresse10,gestionnaire2)
             museeService.insertOrUpdateMusee(musee11,adresse11,gestionnaire1)
             museeService.insertOrUpdateMusee(musee12,adresse12,gestionnaire1)
+
 
             }
     }
