@@ -7,11 +7,14 @@ import grails.transaction.Transactional
 
 @Transactional
 class DemandeVisiteMuseeService {
-    DemandeVisiteMusee insertOrUpdateDemandeVisiteMusee(DemandeVisiteMusee demandeVisiteMusee, Musee unMusee, DemandeVisite uneDemandeVisite) {
-        uneDemandeVisite.save(flush: true)
-        unMusee.save(flush:true)
-        demandeVisiteMusee.dateDemande = new Date()
 
+    MuseeService museeService
+
+    DemandeVisiteMusee insertOrUpdateDemandeVisiteMusee(DemandeVisiteMusee demandeVisiteMusee, Musee unMusee, DemandeVisite uneDemandeVisite) {
+        museeService.insertOrUpdateMusee(unMusee, unMusee.adresse, unMusee.gestionnaire)
+        uneDemandeVisite.save(flush: true)
+
+        demandeVisiteMusee.dateDemande = new Date()
         demandeVisiteMusee.save(flush: true)
         demandeVisiteMusee
     }
