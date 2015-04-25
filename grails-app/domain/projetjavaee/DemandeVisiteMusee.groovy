@@ -2,12 +2,10 @@ package projetjavaee
 
 class DemandeVisiteMusee {
     Date dateDemande
-    Musee musee
-    DemandeVisite demandeVisite
-
+    static  belongsTo =[musee : Musee, demandeVisite: DemandeVisite]
 
     static constraints = {
-
+        dateDemande: nullable: false
 
     }
 }
