@@ -7,7 +7,12 @@ class Musee {
     String telephone
     String accesMetro
     String accesBus
-    Adresse adresse
+
+
+    static belongsTo = [
+            gestionnaire: Gestionnaire,
+            adresse     : Adresse
+    ]
 
     static constraints = {
         nom nullable: false, blank: false
@@ -16,8 +21,10 @@ class Musee {
         accesMetro nullable:false, blank: false
         accesBus nullable:false, blank: false
         adresse nullable: false
+        gestionnaire nullable: false
         //([0-9]+[ -_/])*[0-9]+       pour le telephone
 
 
     }
+
 }
