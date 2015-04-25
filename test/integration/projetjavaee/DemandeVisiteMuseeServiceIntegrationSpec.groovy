@@ -16,7 +16,7 @@ class DemandeVisiteMuseeServiceIntegrationSpec extends Specification {
     MuseeService museeService
 
     def setup() {
-        Adresse uneAdresse = new Adresse(numero: "2", rue: "RUE DES ARCHIVES", codePostal: 31500, ville: "Toulouse")
+        Adresse uneAdresse = new Adresse(numero: "2", rue: "RUE DES ARCHIVES", codePostal: "31500", ville: "Toulouse")
         Gestionnaire unGestionnaire = new Gestionnaire(nom: "Mairie de Toulouse - DGA Culture")
         unMusee = new Musee(nom: "ARCHIVES MUNICIPALES TOULOUSE", horaireOuverture: "Ouvert du lundi au vendredi de 9h à 17h. Fermeture de 12h à 13h30 pendant toutes les vacances scolaires. Fermeture annuelle la dernière quinzaine de juillet.", telephone: "05 61 61 63 33", accesMetro: "Roseraie (A)", accesBus: "36, 38")
 
