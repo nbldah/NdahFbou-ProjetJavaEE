@@ -37,4 +37,22 @@ class GestionnaireSpec extends Specification {
         unNom = null
 
     }
+
+    @Unroll
+    void "test de l'affichage"(String unNom) {
+
+        given: "un gestionnaire initilialise correctement"
+        Gestionnaire gestionnaire = new Gestionnaire(nom: unNom)
+
+        expect: "le gestionnaire retourne une chaine valide"
+        gestionnaire.toString() == unNom
+        gestionnaire.toString().size() != 0
+
+        where:
+        unNom = "dupont"
+
+    }
+
+
+
 }
