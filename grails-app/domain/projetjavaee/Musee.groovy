@@ -23,4 +23,9 @@ class Musee {
 
     }
 
+
+    @Override
+    public String toString() {
+        id
+    }
 }
