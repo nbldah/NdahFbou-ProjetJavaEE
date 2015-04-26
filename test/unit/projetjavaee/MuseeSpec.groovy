@@ -61,6 +61,25 @@ class MuseeSpec extends Specification {
     }
 
 
+    @Unroll
+    void "test de l'affichage d'un musee"(String unNom, String uneHoraireOuverture,
+                                          String unTelephone , String unAccesMetro,
+                                          String unAccesBus , Adresse uneAdresse,Gestionnaire unGestionnaire)  {
+
+        given: "un musee initilialise correctement"
+        Musee unMusee = new Musee(nom: unNom, horaireOuverture: uneHoraireOuverture
+                , telephone: unTelephone, accesMetro: unAccesMetro, accesBus: unAccesBus , adresse: uneAdresse
+                , gestionnaire: unGestionnaire)
+        expect: "le musee retourne une chaine valide"
+        unMusee.toString().size() != 0
+
+        where:
+        unNom                   | uneHoraireOuverture  | unTelephone  | unAccesMetro | unAccesBus | uneAdresse   | unGestionnaire
+        "Musee des compagnons"  | "de 8h à 17h"        | "0568998767" | "metro B"    | "bus 178"  | Mock(Adresse)| Mock(Gestionnaire)
+
+    }
+
+
 
 
 }

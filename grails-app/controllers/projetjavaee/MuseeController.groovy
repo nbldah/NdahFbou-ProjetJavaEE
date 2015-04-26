@@ -25,6 +25,7 @@ class MuseeController {
         ArrayList<String> listeFavoris = session.getAttribute("mesFavoris")
         listeFavoris? null : (listeFavoris = new ArrayList<String>())
         listeFavoris.contains(params.nom) ? false : listeFavoris.add(params.nom)
+        listeFavoris.sort()
         session.setAttribute("mesFavoris",listeFavoris)
         render(view: 'index', model: [museeList: session.getAttribute("museeList")])
     }
@@ -33,6 +34,7 @@ class MuseeController {
         ArrayList<String> listeFavoris = session.getAttribute("mesFavoris")
         listeFavoris ? null : (listeFavoris = new ArrayList<String>())
         listeFavoris.remove(params.nom)
+        listeFavoris.sort()
         session.setAttribute("mesFavoris", listeFavoris)
         render(view: ("/" + params.from), model: [museeList: session.getAttribute("museeList")])
     }
@@ -45,6 +47,7 @@ class MuseeController {
 
     def doSearchMusee() {
         def museeList = museeService.searchMusee(params.nom,params.codePostal, params.rue)
+        museeList.sort()
         render(view: 'index', model: [museeInstanceList: museeList, museeInstanceCount: museeList.size()])
     }
 

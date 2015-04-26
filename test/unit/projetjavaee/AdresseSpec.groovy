@@ -55,4 +55,19 @@ class AdresseSpec extends Specification {
 
     }
 
+    @Unroll
+    void "test de l'affichage d'une adresse"(String unNumero, String uneRue, int unCodePostal , String uneVille)  {
+
+        given: "une adresse initilialise correctement"
+        Adresse adresse = new Adresse(numero: unNumero, rue: uneRue, codePostal: unCodePostal, ville: uneVille)
+
+        expect: "l'adresse retourne une chaine valide"
+        adresse.toString().size() != 0
+
+        where:
+        unNumero | uneRue                | unCodePostal | uneVille
+        "4"      | "Auguste Perret"      | 31400        | "Toulouse"
+
+    }
+
 }
