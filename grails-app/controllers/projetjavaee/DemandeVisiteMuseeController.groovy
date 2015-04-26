@@ -28,21 +28,34 @@ class DemandeVisiteMuseeController {
         render(view: "index")
     }
 
+    def cleanAttribute() {
+        session.setAttribute("dateValide", null)
+    }
+
     def redirecToMusee() {
+        cleanAttribute()
         redirect(controller: "musee", action: "renderMusee")
     }
 
     def doValiderDemande() {
         Musee m = Musee.findByNom(params.musee)
 
+        boolean isValide = true
+
         DemandeVisite dv = new DemandeVisite(code: (new Date()).time.toString(), dateDebutPeriode: params.dateDebut, dateFinPeriode: params.dateFin, nbPersonnes: params.nbPers, statut: "En cours de traitement")
-        DemandeVisiteMusee dvm = new DemandeVisiteMusee(musee: m, demandeVisite: dv)
-        def demandeVisiteMusee = demandeVisiteMuseeService.insertOrUpdateDemandeVisiteMusee(dvm, m, dv)
 
-        session.setAttribute("etatDemande", true)
-        session.setAttribute("code", dvm.demandeVisite.code)
+        if (dv.validate()) {
+            DemandeVisiteMusee dvm = new DemandeVisiteMusee(musee: m, demandeVisite: dv)
+            def demandeVisiteMusee = demandeVisiteMuseeService.insertOrUpdateDemandeVisiteMusee(dvm, m, dv)
+            session.setAttribute("dateValide", null)
+            session.setAttribute("etatDemande", true)
+            session.setAttribute("code", dvm.demandeVisite.code)
 
-        render(view: 'index', model: [demandeVisiteMusee: demandeVisiteMusee])
+            render(view: 'validation')
+        } else {
+            session.setAttribute("dateValide", false)
+            render(view: 'index')
+        }
     }
 
     @Transactional
