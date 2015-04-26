@@ -27,8 +27,6 @@ class MuseeService {
 
 
     List<Musee> searchMusee(String nomMusee, String codePostal, String rueMusee) {
-        //nomMusee ? null : ""
-        //rueMusee ? null : ""
 
         def criteria = Musee.createCriteria()
 
@@ -39,18 +37,16 @@ class MuseeService {
 
             if (codePostal) {
                 adresse {
-                    eq 'codePostal', "%${codePostal}%"
+                    eq 'codePostal', "${codePostal}"
                 }
             }
 
             if (rueMusee) {
                 adresse {
-                    ilike 'rue', "${rueMusee}"
+                    ilike 'rue', "%${rueMusee}%"
                 }
             }
         }
         result
     }
-
-
 }
