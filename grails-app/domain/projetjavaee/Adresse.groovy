@@ -16,4 +16,8 @@ class Adresse {
         ville nullable: false ,blank:false ,inList:['Toulouse']
 
     }
+
+    public String toString() {
+        "${numero} ${rue} ${codePostal} ${ville}"
+    }
 }
