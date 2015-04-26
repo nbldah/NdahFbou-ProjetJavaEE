@@ -139,7 +139,7 @@
                     <td>${museeInstance}</td>
                     <td><g:link action="supprimerFavoris"  params="[nom: museeInstance, from: 'musee/index']" style="text-align: right">
                         <input type="button" value="Supprimer"></g:link></td>
-                    <td><g:link action="demandePref" controller="demandevisitemusee/index"  params="[nom: museeInstance]"
+                    <td><g:link action="redirectToDemandeVisite" controller="musee"
                                 style="text-align: right"><input type="button" value="Faire une demande"></g:link>
                     </td>
                 </tr>

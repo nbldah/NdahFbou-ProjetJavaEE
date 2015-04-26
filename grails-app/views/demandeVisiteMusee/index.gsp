@@ -4,17 +4,24 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'demandeVisiteMusee.label', default: 'DemandeVisiteMusee')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
+%{--		<g:set var="entityName" value="${message(code: 'demandeVisiteMusee.label', default: 'DemandeVisiteMusee')}" />--}%
+		<title>%{--<g:message code="default.list.label" args="[entityName]" />--}%Demande de visite de musée</title>
+        <style type="text/css" media="screen">
+        div {
+            font-size:smaller;
+        }
+        </style>
 	</head>
 	<body>
 		<a href="#list-demandeVisiteMusee" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
+%{--		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
-		</div>
+		</div>--}%
+
+
 
     <g:form>
         <fieldset class="form">
@@ -22,15 +29,15 @@
                 <table>
                     <tr>
                         <td>Musee: </td>
-                        <td><g:select name="musee" from="${Musee.list()}"></g:select> </td>
+                        <td><g:select name="musee" from="${session.getAttribute("mesFavoris")}"></g:select> </td>
                     </tr>
                     <tr>
                         <td>Date de début: </td>
-                        <td><g:datePicker name="dateDebut"></g:datePicker></td>
+                        <td><g:datePicker name="dateDebut" precision="day"/></td>
                     </tr>
                     <tr>
                         <td>Date de fin: </td>
-                        <td><g:datePicker name="dateFin"></g:datePicker></td>
+                        <td><g:datePicker name="dateFin" precision="day"/></td>
                     </tr>
                     <tr>
                         <td>Nombre de personnes (max 6):</td>
@@ -38,16 +45,26 @@
                     </tr>
                 </table>
             </div>
-
+            <br/>
+            <div style="float: left">
+                <g:link action="redirecToMusee" controller="demandeVisiteMusee" style="text-align: right">
+                    <input type="button" value="Retour">
+                </g:link>
+            </div>
             <div style="float: right">
-                <g:actionSubmit action="doValiderDemande" value="Valider la demande" />
+                <g:actionSubmit action="doValiderDemande" value="Valider la demande"/>
             </div>
         </fieldset>
 
     </g:form>
 
+    <g:if test="${(boolean)session.getAttribute("etatDemande")}">
+        <h1 style="text-align: center">Votre demande sera en cours de traitement. <br/>Vous pouvez consulter l'état de votre demande avec le code suivant: ${session.getAttribute("code")}</h1>
 
-		<div id="list-demandeVisiteMusee" class="content scaffold-list" role="main">
+    </g:if>
+
+
+%{--		<div id="list-demandeVisiteMusee" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
@@ -81,6 +98,6 @@
 			<div class="pagination">
 				<g:paginate total="${demandeVisiteMuseeInstanceCount ?: 0}" />
 			</div>
-		</div>
+		</div>--}%
 	</body>
 </html>

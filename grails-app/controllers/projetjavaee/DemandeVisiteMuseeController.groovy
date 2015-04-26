@@ -24,12 +24,24 @@ class DemandeVisiteMuseeController {
         respond new DemandeVisiteMusee(params)
     }
 
-    def doValiderDemande() {
-        Musee m = params.musee
+    def renderDemandeVisite() {
+        render(view: "index")
+    }
 
-        DemandeVisite dv = new DemandeVisite(code: session.getId(), dateDebutPeriode: params.dateDebut, dateFinPeriode: params.dateFin, nbPersonnes: params.nbPers, statut: "En cours de traitement")
+    def redirecToMusee() {
+        redirect(controller: "musee", action: "renderMusee")
+    }
+
+    def doValiderDemande() {
+        Musee m = Musee.findByNom(params.musee)
+
+        DemandeVisite dv = new DemandeVisite(code: (new Date()).time.toString(), dateDebutPeriode: params.dateDebut, dateFinPeriode: params.dateFin, nbPersonnes: params.nbPers, statut: "En cours de traitement")
         DemandeVisiteMusee dvm = new DemandeVisiteMusee(musee: m, demandeVisite: dv)
         def demandeVisiteMusee = demandeVisiteMuseeService.insertOrUpdateDemandeVisiteMusee(dvm, m, dv)
+
+        session.setAttribute("etatDemande", true)
+        session.setAttribute("code", dvm.demandeVisite.code)
+
         render(view: 'index', model: [demandeVisiteMusee: demandeVisiteMusee])
     }
 

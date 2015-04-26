@@ -12,7 +12,13 @@ class MuseeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def redirectToDemandeVisite() {
+        redirect(controller: "demandeVisiteMusee", action: "renderDemandeVisite")
+    }
 
+    def renderMusee() {
+        render(view: "index")
+    }
 
     def ajouterFavoris() {
 

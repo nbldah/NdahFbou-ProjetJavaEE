@@ -13,7 +13,8 @@ class DemandeVisiteMuseeService {
     DemandeVisiteMusee insertOrUpdateDemandeVisiteMusee(DemandeVisiteMusee demandeVisiteMusee, Musee unMusee, DemandeVisite uneDemandeVisite) {
         museeService.insertOrUpdateMusee(unMusee, unMusee.adresse, unMusee.gestionnaire)
         uneDemandeVisite.save(flush: true)
-
+        demandeVisiteMusee.musee = unMusee
+        demandeVisiteMusee.demandeVisite = uneDemandeVisite
         demandeVisiteMusee.dateDemande = new Date()
         demandeVisiteMusee.save(flush: true)
         demandeVisiteMusee
