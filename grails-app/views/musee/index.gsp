@@ -1,11 +1,18 @@
 
 <%@ page import="projetjavaee.Musee" %>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'musee.label', default: 'Musee')}" />
+        <meta name="layout" content="main">
+        <g:set var="entityName" value="${message(code: 'musee.label', default: 'Musee')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+
+        <style type="text/css" media="screen">
+        div {
+                font-size:smaller;
+                }
+        </style>
+
 	</head>
 	<body>
 		<a href="#list-musee" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -42,10 +49,6 @@
                                 <option>31500</option>
                             </select>
                         </g:form>
-
-
-
-
                     </div>
 
                     <div class="fieldcontain">
@@ -62,13 +65,9 @@
             </g:form>
 
 
-
-
-
 			<table>
 			<thead>
 					<tr>
-					
 						<g:sortableColumn property="nom" title="${message(code: 'musee.nom.label', default: 'Nom')}" />
 					
 						<g:sortableColumn property="horaireOuverture" title="${message(code: 'musee.horaireOuverture.label', default: 'Horaire Ouverture')}" />
@@ -80,8 +79,11 @@
 						<g:sortableColumn property="accesBus" title="${message(code: 'musee.accesBus.label', default: 'Acces Bus')}" />
 					
 						<th><g:message code="musee.adresse.label" default="Adresse" /></th>
-					
-					</tr>
+
+                        <th><g:message code="musee.gestionnaire.label" default="Gestionnaire"/></th>
+
+                    </tr>
+
 				</thead>
 				<tbody>
 				<g:each in="${museeInstanceList}" status="i" var="museeInstance">
@@ -98,13 +100,23 @@
 						<td>${fieldValue(bean: museeInstance, field: "accesBus")}</td>
 					
 						<td>${fieldValue(bean: museeInstance, field: "adresse")}</td>
-					
-					</tr>
+
+                        <td>${fieldValue(bean: museeInstance, field: "gestionnaire")}</td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                            <g:if test="${museeInstanceList.size() > 3 }">
+                                <g:actionSubmit action="doAddList" value="Ajouter à ma liste" />
+                            </g:if>
+                            <td>
+                        </tr>
 				</g:each>
+
 				</tbody>
 			</table>
 			<div class="pagination">
-                <g:paginate controller="Musee" action="list" total="${museeInstanceCount}" />
+				<g:paginate total="${museeInstanceCount ?: 0}"/>
 			</div>
 		</div>
 	</body>
