@@ -12,6 +12,26 @@ class MuseeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+
+
+    def ajouterFavoris() {
+
+        ArrayList<String> listeFavoris = session.getAttribute("mesFavoris")
+        listeFavoris? null : (listeFavoris = new ArrayList<String>())
+        listeFavoris.contains(params.nom) ? false : listeFavoris.add(params.nom)
+        session.setAttribute("mesFavoris",listeFavoris)
+        render(view: 'index', model: [museeList: session.getAttribute("museeList")])
+    }
+
+    def supprimerFavoris() {
+        ArrayList<String> listeFavoris = session.getAttribute("mesFavoris")
+        listeFavoris ? null : (listeFavoris = new ArrayList<String>())
+        listeFavoris.remove(params.nom)
+        session.setAttribute("mesFavoris", listeFavoris)
+        render(view: ("/" + params.from), model: [museeList: session.getAttribute("museeList")])
+    }
+
+
     def index(Integer max) {
         params.max = Math.min(max ?: 5, 100)
         respond Musee.list(params), model:[museeInstanceCount: Musee.count()]
